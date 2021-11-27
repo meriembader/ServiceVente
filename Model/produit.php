@@ -5,15 +5,16 @@
 	*/
 	class Produit
 	{
+		public $idProduit
 		public $reference;
 		public $nom;
 		public $quantite_total;
 		public $prix;
 		public $chemin_img;
 		private $description;
-		private $reference_sous_categorie;
+		private $status;
 		
-		function __construct($reference,$nom,$quantite_total,$prix,$chemin_img,$description)
+		function __construct($reference,$nom,$quantite_total,$prix,$chemin_img,$description, $status)
 		{
 			$this->reference=$reference;
 			$this->nom=$nom;
@@ -21,6 +22,7 @@
 			$this->prix=$prix;
 			$this->chemin_img=$chemin_img;
 			$this->description=$description;
+			$this->status=$status;
 			
 		}
 
@@ -42,7 +44,9 @@
 		function getDescription(){
 			return $this->description;
 		}
-		
+		function getStatus(){
+			return $this->status;
+		}
 
 		function setReference($reference){
 			$this->reference=$reference;
@@ -59,8 +63,9 @@
 		function setChemin_img($chemin_img){
 			$this->chemin_img=$chemin_img;
 		}
-		function setDescription($description){
-			$this->description=$description;
+		
+		function setStatus($status){
+			$this->status=$status;
 		}
 		
 	}
