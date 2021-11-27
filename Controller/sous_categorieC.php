@@ -1,10 +1,10 @@
 <?php
-	include_once "../../config.php";
-	include_once "categorieC.php";
+	//include_once "../../config.php";
+	//include_once "categorieC.php";
 	/**
 	* 
 	*/
-	class sous_categorieC
+	/*class sous_categorieC
 	{
 		function recuperer($reference_categorie){
 			$db = config::getConnexion();
@@ -44,7 +44,7 @@
 			$l = $db->query($sql);
 			return $l;
 		}*/
-	}
+	//}
 
 
-  ?>0
+  ?>
