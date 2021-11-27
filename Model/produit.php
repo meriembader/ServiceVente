@@ -5,12 +5,12 @@
 	*/
 	class Produit
 	{
-		public $idProduit
-		public $reference;
-		public $nom;
-		public $quantite_total;
-		public $prix;
-		public $chemin_img;
+		private $idProduit
+		private $reference;
+		private $nom;
+		private $quantite_total;
+		private $prix;
+		private $chemin_img;
 		private $description;
 		private $status;
 		

@@ -5,10 +5,10 @@
 	*/
 	class paiement
 	{
-		public $idPaiement;
-		public $id_commande;
-		public $prix_totale;
-		public $mode;
+		private $idPaiement;
+		private $id_commande;
+		private $prix_totale;
+		private $mode;
 		
 		function __construct($id_commande,$prix_totale,$mode)
 		{
