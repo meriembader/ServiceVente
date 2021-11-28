@@ -18,9 +18,10 @@
 		private $mail;
 
 
+
 		function __construct($nomUser,$prenomUser,$addresse,$telephone,$id_produit,$quantite,$modeLivraison,$prix_totale,$modePaiement,$mail)
 		{
-			
+	
 			$this->nomUser=$nomUser;
 			$this->prenomUser=$prenomUser;
 			$this->addresse=$addresse;
@@ -34,9 +35,7 @@
 
 		}
 
-	/*	function getIdC(){
-			return $this->idC;
-		}*/
+	
 		function getNomUser(){
 			return $this->nomUser;
 		}
@@ -69,9 +68,7 @@
 
 
 
-		/*function setIdC($idC){
-			$this->idC=$idC;
-		}*/
+		
 		function setNomUser($nomUser){
 			$this->nomUser=$nomUser;
 		}
