@@ -1,18 +1,14 @@
-
-
 <?php
-
-$dbhandle = new mysqli('127.0.0.1', 'root', '','ventebd');
-echo $dbhandle->connect_error;
-
-$query = "SELECT  modeLivraison, count(modeLivraison)  FROM commande  group by modeLivraison";
-$res = 	$dbhandle->query($query);
+include_once "../../../../Controller/PaiementC.php";
+ include_once "../../../../Model/paiement.php";
 
 
-
+$PaiementController = new PaiementC();
+$ListPaiement=$PaiementController->afficherJoinedpaiement();
 
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -397,7 +393,7 @@ $res = 	$dbhandle->query($query);
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
               <i class="menu-icon mdi mdi-table"></i>
-              <span class="menu-title">Tables</span>
+              <span class="menu-title">Gestion Commandes</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="tables">
@@ -411,7 +407,7 @@ $res = 	$dbhandle->query($query);
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
               <i class="menu-icon mdi mdi-table"></i>
-              <span class="menu-title">Tables</span>
+              <span class="menu-title">Gestion paiement</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="tables">
@@ -429,57 +425,83 @@ $res = 	$dbhandle->query($query);
       <div class="main-panel">
         <div class="content-wrapper">
           <div class="row">
-         
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
             <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                 
-                 
-                   
+                  <h4 class="card-title">Striped Table</h4>
+                  <p class="card-description">
+                    Add class <code>.table-striped</code>
+                  </p>
+                  <a class="btn btn-primary" href="generatePDF.php"><span>PDF</span></a>
+                  <div id="DataTables_Table_1_filter" class="dataTables_filter">
+                                <label>Recherche:<input id="myInput"  type="text"name="rechercher" class="form-control input-sm" placeholder="" aria-controls="DataTables_Table_1"></label></div>
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>
+                            commande
+                          </th>
+                          <th>
+                           prix_totale
+                          </th>
+                          <th>
+                           mode
+                          </th>
+                         
+                          <th>
+                            action
+                          </th>
 
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
+                        </tr>
+                      </thead>
+                      <tbody id="myTable">
+                      <?php      foreach ($ListPaiement as $row) {?>
+                        <tr>
+                         
+                        <td>
+                                                       <?php echo $row['reference']; ?>
+                                                      </td>
+                                                      <td>
+                                                      <?php echo $row['prix_totale']; ?>
+                                                      </td>
+                                                      <td>
+                                                      <?PHP echo $row['mode']; ?>
+                                                      </td>
 
-      function drawChart() {
-
-        var data = google.visualization.arrayToDataTable([
-		
-		['modeLivraison','modeLivraison'],
-         <?php
-		 
-		 //fetch_assoc(): lit une ligne de résultat MySql dans un tableau associatif //
-		 
-		 while ($row=$res->fetch_assoc()) {
-			 
-			 echo "['".$row['modeLivraison']."',".$row['count(modeLivraison)']."],"; 
-			 
-		 }
-		 
-		 
-		 
-		 
-		 ?>
-        ]);
-
-        var options = {
-          title: '0: non réservée | 1: réservée',
-		  is3D:true,
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
-        chart.draw(data, options);
-      }
-    </script>
-  </head>
-
- 
-    <div id="piechart" style="width: 800px; height: 500px;"></div>
-
- </div>
-               
+                                                    
+                                                      <td>
+                                                    <form
+                                  method="POST" action="">
+                        <input type="submit" name="supprimer" value="supprimer">
+                     
+                       
+                               </form>
+                                                             </td>
+                                                      </td>
+                                                             <tr class="spacer"></tr>
+                          </tr>
+                    
+                    
+                          <?php
+                                   }
+                                   ?>
+                     
+                     
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
