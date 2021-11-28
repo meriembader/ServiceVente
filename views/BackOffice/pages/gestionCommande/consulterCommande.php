@@ -437,6 +437,7 @@ $Listcommande=$commandeController->afficherJoinedCommande();
               <ul class="nav flex-column sub-menu">
   
                 <li class="nav-item"> <a class="nav-link" href="../../pages/gestionCommande/consulterCommande.php">Consulter commande</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../../pages/gestionCommande/StatCommande.php">stat commande</a></li>
               </ul>
             </div>
           </li>
@@ -478,7 +479,17 @@ $Listcommande=$commandeController->afficherJoinedCommande();
       <div class="main-panel">
         <div class="content-wrapper">
           <div class="row">
-          
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
             <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
@@ -486,6 +497,9 @@ $Listcommande=$commandeController->afficherJoinedCommande();
                   <p class="card-description">
                     Add class <code>.table-striped</code>
                   </p>
+                  <a class="btn btn-primary" href="generatePDF.php"><span>PDF</span></a>
+                  <div id="DataTables_Table_1_filter" class="dataTables_filter">
+                                <label>Recherche:<input id="myInput"  type="text"name="rechercher" class="form-control input-sm" placeholder="" aria-controls="DataTables_Table_1"></label></div>
                   <div class="table-responsive">
                     <table class="table table-striped">
                       <thead>
@@ -520,7 +534,9 @@ $Listcommande=$commandeController->afficherJoinedCommande();
                           <th>
                             mail
                           </th>
-                         
+                          <th>
+                            action
+                          </th>
 
                         </tr>
                       </thead>
