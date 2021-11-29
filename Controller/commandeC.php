@@ -14,7 +14,7 @@
 
 		function ajouter($commande){
 			$db = config::getConnexion();
-			$sql = "INSERT INTO commande VALUES(:nomUser,:prenomUser,:addresse,:telephone,:id_produit,:quantite,:modeLivraison,:modePaiement,:mail)";
+			$sql = "INSERT INTO commande VALUES(:nomUser,:prenomUser,:addresse,:telephone,:id_produit,:quantite,:modeLivraison,:modePaiement,:mail,:status)";
 			$req = $db->prepare($sql);
 			$req->bindValue(':nomUser',$commande->getNomUser());
 		
@@ -25,6 +25,8 @@
 			$req->bindValue(':modeLivraison',$commande->getModeLivraison());
 			$req->bindValue(':modePaiement',$commande->getModePaiement());
 			$req->bindValue(':mail',$commande->getMail());
+			$req->bindValue(':status',$commande->getStatus());
+
 
 			$req->execute();
 		}

@@ -16,6 +16,9 @@ $total_products = $pdo->query('SELECT * FROM products')->rowCount();
 ?>
 <?=template_header('Products')?>
 
+
+
+   
 <div class="products content-wrapper">
     <h1>Products</h1>
     <p><?=$total_products?> Products</p>

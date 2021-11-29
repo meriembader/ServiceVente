@@ -15,10 +15,11 @@
 		private $modeLivraison;
 		private $modePaiement;
 		private $mail;
+		private $status;
 
 
 
-		function __construct($nomUser,$prenomUser,$addresse,$telephone,$id_produit,$quantite,$modeLivraison,$prix_totale,$modePaiement,$mail)
+		function __construct($nomUser,$prenomUser,$addresse,$telephone,$id_produit,$quantite,$modeLivraison,$prix_totale,$modePaiement,$mail,$status)
 		{
 	
 			$this->nomUser=$nomUser;
@@ -31,6 +32,7 @@
 		
 			$this->modePaiement=$modePaiement;
 			$this->mail=$mail;
+			$this->status=$status;
 
 		}
 
@@ -61,6 +63,10 @@
 		}
 		function getMail(){
 			return $this->mail;
+		}
+
+		function getStatus(){
+			return $this->status;
 		}
 
 
@@ -95,6 +101,9 @@
 
 		function setMail($mail){
 			$this->mail=$mail;
+		}
+		function setStatus($status){
+			$this->status=$status;
 		}
 	
 	}

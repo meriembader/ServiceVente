@@ -25,6 +25,7 @@ $Listcommande=$commandeController->afficher();
   <link rel="stylesheet" href="../../vendors/typicons/typicons.css">
   <link rel="stylesheet" href="../../vendors/simple-line-icons/css/simple-line-icons.css">
   <link rel="stylesheet" href="../../vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- endinject -->
   <!-- Plugin css for this page -->
   <!-- End plugin css for this page -->
@@ -466,9 +467,7 @@ $Listcommande=$commandeController->afficher();
                             telephone
                           </th>
                          
-                          <th>
-                            quantite
-                          </th>
+                        
                           <th>
                             modeLivraison
                           </th>
@@ -478,6 +477,9 @@ $Listcommande=$commandeController->afficher();
                           </th>
                           <th>
                             mail
+                          </th>
+                          <th>
+                            status
                           </th>
                           <th>
                             action
@@ -506,9 +508,7 @@ $Listcommande=$commandeController->afficher();
                                                       <?PHP echo $row['telephone']; ?>
                                                       </td>
                                                       
-                                                      <td>
-                                                      <?PHP echo $row['quantite']; ?>
-                                                      </td>
+                                                     
                                                       <td>
                                                       <?PHP echo $row['modeLivraison']; ?>
                                                       </td>
@@ -520,10 +520,15 @@ $Listcommande=$commandeController->afficher();
                                                       <?PHP echo $row['mail']; ?>
                                                       </td>
                                                       <td>
+                                                      <?PHP echo $row['status']; ?>
+                                                      </td>
+                                                      <td>
                                                     <form
                                   method="POST" action="supprimerCommande.php">
-                        <input type="submit" name="supprimer"  value="supprimer">
+                       
+                        <button class="btn btn-danger"type="submit" name="supprimer"><i class="fa fa-trash"></i></button>
                         <input type="hidden" value=<?PHP echo $row['idC']; ?> name="idC">
+                        <a href="modifierCommande.php?idC=<?PHP echo $row['idC']; ?>" type="button" class="btn btn-success waves-effect"> <i class="fa fa-edit" style="font-size:15px"></i>  </a>
                        
                                </form>
 

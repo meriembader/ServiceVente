@@ -1,14 +1,52 @@
 <?php
-include_once "../../../../Controller/PaiementC.php";
- include_once "../../../../Model/paiement.php";
 
-
-$PaiementController = new PaiementC();
-$ListPaiement=$PaiementController->afficher();
-
-
+    
+    include_once "../../../../Controller/PaiementC.php";
+    include_once "../../../../Model/paiement.php";
+   
+    function pdo_connect_mysql() {
+        $DATABASE_HOST = 'localhost';
+        $DATABASE_USER = 'root';
+        $DATABASE_PASS = '';
+        $DATABASE_NAME = 'ventebd';
+        try {
+            return new PDO('mysql:host=' . $DATABASE_HOST . ';dbname=' . $DATABASE_NAME . ';charset=utf8', $DATABASE_USER, $DATABASE_PASS);
+        } catch (PDOException $exception) {
+            // If there is an error with the connection, stop the script and display the error.
+            exit('Failed to connect to database!');
+        }
+    }
+    $msg = '';
+    $pdo = pdo_connect_mysql();
+    // Check if the paiement id exists, for example update.php?id=1 will get the paiement with the id of 1
+    if (isset($_GET['id'])) {
+        if (!empty($_POST)) {
+            // This part is similar to the create.php, but instead we update a record and not insert
+          //  $id = isset($_POST['id']) ? $_POST['id'] : NULL;
+            $commandeRef = isset($_POST['commandeRef']) ? $_POST['commandeRef'] : '';
+            $produit = isset($_POST['produit']) ? $_POST['produit'] : '';
+            $prix = isset($_POST['prix']) ? $_POST['prix'] : '';
+            $date = isset($_POST['date']) ? $_POST['date'] : '';
+            $mode = isset($_POST['mode']) ? $_POST['mode'] : '';
+            // Update the record
+            $stmt = $pdo->prepare('UPDATE paiement SET  commandeRef = ?, produit = ?, prix = ?, date = ?, mode = ? WHERE id = ?');
+            $stmt->execute([ $commandeRef, $produit, $prix, $date, $mode, $_GET['id']]);
+            $msg = 'Updated Successfully!';
+        }
+        // Get the paiement from the paiements table
+     $stmt = $pdo->prepare('SELECT * FROM paiement WHERE id = ?');
+       $stmt->execute([$_GET['id']]);
+      $paiement = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (!$paiement) {
+           exit('paiement doesn\'t exist with that id!');
+        }
+    } 
+    else {
+        exit('No id specified!');
+    }
+    
+    
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +63,6 @@ $ListPaiement=$PaiementController->afficher();
   <link rel="stylesheet" href="../../vendors/typicons/typicons.css">
   <link rel="stylesheet" href="../../vendors/simple-line-icons/css/simple-line-icons.css">
   <link rel="stylesheet" href="../../vendors/css/vendor.bundle.base.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- endinject -->
   <!-- Plugin css for this page -->
   <!-- End plugin css for this page -->
@@ -414,9 +451,12 @@ $ListPaiement=$PaiementController->afficher();
             <div class="collapse" id="tables">
               <ul class="nav flex-column sub-menu">
   
-                <li class="nav-item"> <a class="nav-link" href="../../pages/gestionPaiement/consulterPaiement.php">Consulter Paiement</a></li>
+               
+              <li class="nav-item"> <a class="nav-link" href="../../pages/gestionPaiement/consulterPaiement.php">Consulter Paiement</a></li>
                 <li class="nav-item"> <a class="nav-link" href="../../pages/gestionPaiement/StatPaiement.php">stat Paiement</a></li>
                 <li class="nav-item"> <a class="nav-link" href="../../pages/gestionPaiement/ajouterPaiement.php">ajout Paiement</a></li>
+             
+             
               </ul>
             </div>
           </li>
@@ -427,17 +467,7 @@ $ListPaiement=$PaiementController->afficher();
       <div class="main-panel">
         <div class="content-wrapper">
           <div class="row">
-          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            $("#myInput").on("keyup", function() {
-                var value = $(this).val().toLowerCase();
-                $("#myTable tr").filter(function() {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                });
-            });
-        });
-    </script>
+
             <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
@@ -445,82 +475,46 @@ $ListPaiement=$PaiementController->afficher();
                   <p class="card-description">
                     Add class <code>.table-striped</code>
                   </p>
-                  <a class="btn btn-primary" href="generatePDF.php"><span>PDF</span></a>
+            
                   
-                  <div id="DataTables_Table_1_filter" class="dataTables_filter">
-                                <label>Recherche:<input id="myInput"  type="text"name="rechercher" class="form-control input-sm" placeholder="" aria-controls="DataTables_Table_1"></label></div>
-                  <div class="table-responsive">
-                    <table class="table table-striped">
-                      <thead>
-                        <tr>
-                          <th>
-                            commande refrence
-                          </th>
-                          <th>
-                           produit
-                          </th>
-                          <th>
-                           prix
-                          </th>
-                          <th>
-                           date
-                          </th>
-                          <th>
-                           mode
-                          </th>
-                         
-                          <th>
-                            action
-                          </th>
+                  <div class="body">
+                            <form action="modifierPaiementAction.php?id=<?=$paiement['id']?>" method="POST">
+                            <table class='table table-hover table-responsive table-bordered'>
+                            <tr>
+            <td>commandeRef</td>
+            <td><input type='text' name='commandeRef' value ="<?php echo $paiement['commandeRef'];?>" class='form-control' /></td>
+        </tr>
+        <tr>
+            <td>produit</td>
+            <td><input type='text' name='produit'  value ="<?php echo $paiement['produit'];?>" class='form-control' /></td>
+        </tr>
+        
+        <tr>
+            <td>prix</td>
+            <td><input type='text' name='prix'  value ="<?php echo $paiement['prix'];?>" class='form-control' /></td>
+        </tr>
+        <tr>
+            <td>date</td>
+            <td><input type='text' name='date'value ="<?php echo $paiement['date'];?>" class='form-control' /></td>
+        </tr>
+        <tr>
+            <td>mode</td>
+            <td><input type='text' name='mode'value ="<?php echo $paiement['mode'];?>" class='form-control' /></td>
+        </tr>
+        
+     
+                                        <button class="btn btn-success waves-effect" type="submit">Valider</button>
+                                        <a href='listpaiement.php' class='btn btn-danger'>Back</a>
+                                </table>
+                            </form>
+                            <?php if ($msg): ?>
+    <p><?=$msg?></p>
+    <?php endif; ?>
 
-                        </tr>
-                      </thead>
-                      <tbody id="myTable">
-                      <?php      foreach ($ListPaiement as $row) {?>
-                        <tr>
-                         
-                        <td>
-                                                       <?php echo $row['commandeRef']; ?>
-                                                      </td>
-                                                      <td>
-                                                      <?php echo $row['produit']; ?>
-                                                      </td>
-                                                      <td>
-                                                      <?php echo $row['prix']; ?>
-                                                      </td>
-                                                      <td>
-                                                      <?php echo $row['date']; ?>
-                                                      </td>
-                                                      <td>
-                                                      <?PHP echo $row['mode']; ?>
-                                                      </td>
-
-                                                    
-                                                      <td>
-                                                    <form
-
-                                              
-
-                                  method="POST" action="supprimerpaiement.php">
-                                  <button class="btn btn-danger"type="submit" name="supprimer"><i class="fa fa-trash"></i></button>
-                        <input type="hidden" value=<?PHP echo $row['id']; ?> name="id">
-                        <a href="modifierPaiement.php?id=<?PHP echo $row['id']; ?>" type="button" class="btn btn-success waves-effect"> <i class="fa fa-edit" style="font-size:15px"></i>  </a>
-                        <a href=VoirPaiement.php?id=<?PHP echo $row['id']; ?>" type="button" class="btn btn-primary"> voir </a>
-                               </form>
-                                                             </td>
-                                                      </td>
-                                                             <tr class="spacer"></tr>
-                          </tr>
-                    
-                    
-                          <?php
-                                   }
-                                   ?>
-                     
-                     
-                      </tbody>
-                    </table>
-                  </div>
+      <?php
+  
+  ?>
+                        </div>
                 </div>
               </div>
             </div>
