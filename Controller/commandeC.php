@@ -38,7 +38,7 @@
 		}
 		function afficherJoinedCommande(){
 			$db = config::getConnexion();
-			$sql="SELECT commande.nomUser,commande.reference,commande.prenomUser, commande.addresse, commande.telephone, products.name, commande.quantite,commande.modeLivraison,commande.prix_totale,commande.modePaiement ,commande.mail  FROM commande INNER JOIN products ON commande.id_produit=products.id";
+			$sql="SELECT commande.nomUser,commande.prenomUser, commande.addresse, commande.telephone, products.name, commande.quantite,commande.modeLivraison,commande.modePaiement ,commande.mail  FROM commande INNER JOIN products ON commande.id_produit=products.id";
 			$liste=$db->query($sql);
 			return $liste;
 			
@@ -55,13 +55,13 @@
 		function modifierCommande($commande,$idC){
 			$db = config::getConnexion();
 			
-			$sql="UPDATE commande SET nomUser=:nomUser,reference=:reference,prenomUser=:prenomUser, addresse=:addresse,telephone=:telephone ,nom=:nom,quantite=:quantite, modeLivraison=:modeLivraison,prix_totale=:prix_totale,modePaiement=:modePaiement,mail=:mail WHERE idC=:idC";
+			$sql="UPDATE commande SET nomUser=:nomUser,prenomUser=:prenomUser, addresse=:addresse,telephone=:telephone ,nom=:nom,quantite=:quantite, modeLivraison=:modeLivraison,modePaiement=:modePaiement,mail=:mail WHERE idC=:idC";
 			try{
 				$req=$db->prepare($sql);
 				
 				
 				$req->bindValue(':nomUser',$commande->getNomUser());
-				$req->bindValue(':reference',$commande->getReference());
+				
 				$req->bindValue(':prenomUser',$commande->getPrenomUser());
 			$req->bindValue(':addresse',$commande->getAddresse());
 			$req->bindValue(':id_produit',$commande->getId_produit());
