@@ -511,7 +511,7 @@ $Listcommande=$commandeController->afficherJoinedCommande();
                                                       <?PHP echo $row['telephone']; ?>
                                                       </td>
                                                       <td>
-                                                      <?PHP echo $row['nom']; ?>
+                                                      <?PHP echo $row['name']; ?>
                                                       </td>
                                                       <td>
                                                       <?PHP echo $row['quantite']; ?>
@@ -530,9 +530,8 @@ $Listcommande=$commandeController->afficherJoinedCommande();
                                                       </td>
                                                       <td>
                                                     <form
-                                  method="POST" action="">
+                                  method="POST" action="supprimerCommande.php">
                         <input type="submit" name="supprimer" value="supprimer">
-                     
                        
                                </form>
                                                              </td>
