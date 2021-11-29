@@ -14,7 +14,7 @@
 			$db = config::getConnexion();
 			$sql = "SELECT * FROM commande ";
 			$liste = $db->query($sql);
-			return $liste;
+			return $liste; 
 		}
 
 		function ajouter($commande){
