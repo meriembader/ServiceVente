@@ -1,14 +1,14 @@
 
 
 <?php
-include_once "../../../../Controller/commandeC.php";
-include_once "../../../../Model/commande.php";
+include_once "../../../../Controller/paiementC.php";
+include_once "../../../../Model/paiement.php";
 
-$commandeC=new commandeC();
+$paiementC=new paiementC();
 
 if(isset($_POST['supprimer'])){
    
-   $commandeC->supprimerCommande($_POST['idC']);
-   header('location: consulterCommande.php');
+   $paiementC->supprimerpaiement($_POST['id']);
+   header('location: consulterPaiement.php');
  } 
  ?>
