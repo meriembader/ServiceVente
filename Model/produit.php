@@ -5,7 +5,7 @@
 	*/
 	class Produit
 	{
-		private $idProduit
+		private $idProduit;
 		private $reference;
 		private $nom;
 		private $quantite_total;
