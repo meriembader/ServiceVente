@@ -50,7 +50,16 @@
         exit('No id specified!');
     }
     
-    
+    $statusMessage = '';
+if ( isset($_POST['captchaText']) && ($_POST['captchaText']!="")){
+	if(strcasecmp($_SESSION['captchaCode'], $_POST['captchaText']) != 0){
+		$statusMessage = "It seems you have entered invalid captcha code! Please try again.";
+	}else{
+		$statusMessage = "Your captcha code have been matched successfully."; 
+	}
+} else {
+	$statusMessage = "Enter captcha code."; 
+}
 ?>
 
 <!DOCTYPE html>
@@ -68,6 +77,10 @@
   <link rel="stylesheet" href="../../vendors/typicons/typicons.css">
   <link rel="stylesheet" href="../../vendors/simple-line-icons/css/simple-line-icons.css">
   <link rel="stylesheet" href="../../vendors/css/vendor.bundle.base.css">
+  
+
+<!-- jQuery -->
+
   <!-- endinject -->
   <!-- Plugin css for this page -->
   <!-- End plugin css for this page -->
@@ -78,6 +91,7 @@
 </head>
 
 <body>
+
   <div class="container-scroller">
     <!-- partial:../../partials/_navbar.html -->
     <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
@@ -484,7 +498,10 @@
                   
                   <div class="body">
                             <form action="modifierCommande.php?idC=<?=$commande['idC']?>" method="POST">
+                         			
+					<div class="form-group">	
                             <table class='table table-hover table-responsive table-bordered'>
+
                             <tr>
             <td>nomUser</td>
             <td><input type='text' name='nomUser' value ="<?php echo $commande['nomUser'];?>" class='form-control' /></td>
@@ -522,6 +539,32 @@
         <tr>
             <td>status</td>
             <td><input type='text' name='status'value ="<?php echo $commande['status'];?>" class='form-control' /></td>
+        </tr>
+        <tr>
+        <script src="js/captcha_code.js"></script>
+          <script>
+            $(document).ready(function(){
+	$("#refreshCaptchaCode").click(function(){
+		var img = $('#captchaCode').attr('src');	
+		img = img.substring(0,img.lastIndexOf("?"));
+		img = img+"?rand="+Math.random()*1000;
+		$('#captchaCode').attr('src', img);
+	});
+});
+          </script>
+        <div class="form-group">
+						<label for="captcha" class="text-info">
+						<?php if($statusMessage) { ?>
+							<span class="text-danger"><strong><?php echo $statusMessage; ?></strong></span>
+						<?php } ?>	
+						</label><br>
+						<input type="text" name="captchaText" id="captchaText" class="form-control" placeholder="Enter Captcha code">
+					</div>
+					<div class="form-group">								
+						<img src="captcha.php?rand=<?php echo rand(); ?>" id='captchaCode'>
+						<br>
+						<p><br>Wants new Captcha code? <a href="javascript:void(0)" id="refreshCaptchaCode">refresh</a></p>
+					</div>										
         </tr>
         
      
