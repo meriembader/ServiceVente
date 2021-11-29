@@ -19,12 +19,14 @@
 
 		function ajouter($paiement){
 			$db = config::getConnexion();
-			$sql = "INSERT INTO paiement VALUES(:id_commande,:prix_totale,:mode)";
+			$sql = "INSERT INTO paiement VALUES(:commandeRef,:produit,:prix,:date,:mode)";
 			$req = $db->prepare($sql);
 			
-			$req->bindValue(':id_commande',$paiement->getid_commande());
+			$req->bindValue(':commandeRef',$paiement->getCommandeRef());
 			
-			$req->bindValue(':prix_totale',$paiement->getPrix_totale());
+			$req->bindValue(':produit',$paiement->getProduit());
+			$req->bindValue(':prix',$paiement->getPrix());
+			$req->bindValue(':date',$paiement->getDate());
 			$req->bindValue(':mode',$paiement->getMode());
 	
 
@@ -38,35 +40,37 @@
 			$req->bindValue(':mode',$mode);
 			return $req;
 		}
-		function afficherJoinedpaiement(){
+	/*	function afficherJoinedpaiement(){
 			$db = config::getConnexion();
-			$sql="SELECT commande.reference,paiement.prix_totale,paiement.mode   FROM paiement INNER JOIN commande ON paiement.id_commande=commande.idC";
+			$sql="SELECT commande.reference,paiement.prix,paiement.mode   FROM paiement INNER JOIN commande ON paiement.commandeRef=commande.idC";
 			$liste=$db->query($sql);
 			return $liste;
 		
-		}
+		}*/
 			
-		function supprimerpaiement($idPaiement){
+		function supprimerpaiement($id){
 			$db = config::getConnexion();
-			$sql="DELETE FROM paiement where idPaiement= :idPaiement";
+			$sql="DELETE FROM paiement where id= :id";
 			$req=$db->prepare($sql);
-			$req->bindValue(':idPaiement',$idPaiement);
+			$req->bindValue(':id',$id);
 	        $req->execute();
 	        
 		}
-		function modifierpaiement($paiement,$idPaiement){
+		function modifierpaiement($paiement,$id){
 			$db = config::getConnexion();
 			
-			$sql="UPDATE paiement SET  id_commande=:id_command ,prix_totale=:prix_totale,mode=:mode WHERE idPaiement=:idPaiement";
+			$sql="UPDATE paiement SET  :commandeRef,:produit,:prix,:date,:mode WHERE id=:id";
 			try{
 				$req=$db->prepare($sql);
 				
 				
 			
-			$req->bindValue(':id_commande',$paiement->getid_commande());
-		
-			$req->bindValue(':prix_totale',$paiement->getPrix_totale());
-			$req->bindValue(':mode',$paiement->getmode());
+				$req->bindValue(':commandeRef',$paiement->getCommandeRef());
+			
+				$req->bindValue(':produit',$paiement->getProduit());
+				$req->bindValue(':prix',$paiement->getPrix());
+				$req->bindValue(':date',$paiement->getDate());
+				$req->bindValue(':mode',$paiement->getMode());
 	
 				
 				$s=$req->execute();

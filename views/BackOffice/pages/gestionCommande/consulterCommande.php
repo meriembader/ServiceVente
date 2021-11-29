@@ -4,7 +4,7 @@ include_once "../../../../Controller/commandeC.php";
 
 
 $commandeController = new commandeC();
-$Listcommande=$commandeController->afficherJoinedCommande();
+$Listcommande=$commandeController->afficher();
 
 
 ?>
@@ -413,8 +413,10 @@ $Listcommande=$commandeController->afficherJoinedCommande();
             <div class="collapse" id="tables">
               <ul class="nav flex-column sub-menu">
   
-                <li class="nav-item"> <a class="nav-link" href="../../pages/gestionPaiement/consulterPaiement.php">Consulter Paiement</a></li>
+              <li class="nav-item"> <a class="nav-link" href="../../pages/gestionPaiement/consulterPaiement.php">Consulter Paiement</a></li>
                 <li class="nav-item"> <a class="nav-link" href="../../pages/gestionPaiement/StatPaiement.php">stat Paiement</a></li>
+                <li class="nav-item"> <a class="nav-link" href="../../pages/gestionPaiement/ajouterPaiement.php">ajout Paiement</a></li>
+             
               </ul>
             </div>
           </li>
@@ -453,9 +455,7 @@ $Listcommande=$commandeController->afficherJoinedCommande();
                           <th>
                             nom user
                           </th>
-                          <th>
-                           reference
-                          </th>
+                         
                           <th>
                             prénom user
                           </th>
@@ -465,18 +465,14 @@ $Listcommande=$commandeController->afficherJoinedCommande();
                           <th>
                             telephone
                           </th>
-                          <th>
-                            produit
-                          </th>
+                         
                           <th>
                             quantite
                           </th>
                           <th>
                             modeLivraison
                           </th>
-                          <th>
-                            prix_totale
-                          </th>
+                          
                           <th>
                             modePaiement
                           </th>
@@ -496,13 +492,12 @@ $Listcommande=$commandeController->afficherJoinedCommande();
                         <td>
                                                        <?php echo $row['nomUser']; ?>
                                                       </td>
+                                                    
                                                       <td>
-                                                      <?php echo $row['reference']; ?>
+                                                       <?php echo $row['prenomUser']; ?>
                                                       </td>
-                                                      <td>
-                                                      <?php echo $row['prenomUser']; ?>
-                                                      </td>
-                                                      
+                                                    
+                                                                                               
                                                       <td>
                                                       <?PHP echo $row['addresse']; ?>
                                                       </td>
@@ -510,18 +505,14 @@ $Listcommande=$commandeController->afficherJoinedCommande();
                                                       <td>
                                                       <?PHP echo $row['telephone']; ?>
                                                       </td>
-                                                      <td>
-                                                      <?PHP echo $row['name']; ?>
-                                                      </td>
+                                                      
                                                       <td>
                                                       <?PHP echo $row['quantite']; ?>
                                                       </td>
                                                       <td>
                                                       <?PHP echo $row['modeLivraison']; ?>
                                                       </td>
-                                                      <td>
-                                                      <?PHP echo $row['prix_totale']; ?>
-                                                      </td>
+                                                     
                                                       <td>
                                                       <?PHP echo $row['modePaiement']; ?>
                                                       </td>
@@ -531,9 +522,16 @@ $Listcommande=$commandeController->afficherJoinedCommande();
                                                       <td>
                                                     <form
                                   method="POST" action="supprimerCommande.php">
-                        <input type="submit" name="supprimer" value="supprimer">
+                        <input type="submit" name="supprimer"  value="supprimer">
+                        <input type="hidden" value=<?PHP echo $row['idC']; ?> name="idC">
                        
                                </form>
+
+
+                           
+
+
+
                                                              </td>
                                                       </td>
                                                              <tr class="spacer"></tr>

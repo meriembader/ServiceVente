@@ -5,7 +5,7 @@
 	*/
 	class commande
 	{
-		private $idC;
+		public $idC;
 		private $nomUser;
 		private $prenomUser;
 		private $addresse;
@@ -13,7 +13,6 @@
 		private $id_produit;
 		private $quantite;
 		private $modeLivraison;
-		private $prix_totale;
 		private $modePaiement;
 		private $mail;
 
@@ -29,7 +28,7 @@
 			$this->id_produit=$id_produit;
 			$this->quantite=$quantite;
 			$this->modeLivraison=$modeLivraison;
-			$this->prix_totale=$prix_totale;
+		
 			$this->modePaiement=$modePaiement;
 			$this->mail=$mail;
 
@@ -56,9 +55,7 @@
 		function getModeLivraison(){
 			return $this->modeLivraison;
 		}
-		function getPrix_totale(){
-			return $this->prix_totale;
-		}
+	
 		function getModePaiement(){
 			return $this->modePaiement;
 		}
@@ -91,9 +88,7 @@
 		function setModeLivraison($modeLivraison){
 			$this->modeLivraison=$modeLivraison;
 		}
-		function setPrix_totale($prix_totale){
-			$this->prix_totale=$prix_totale;
-		}
+		
 		function setModePaiement($modePaiement){
 			$this->modePaiement=$modePaiement;
 		}

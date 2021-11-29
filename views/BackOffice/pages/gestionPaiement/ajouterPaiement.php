@@ -413,9 +413,12 @@ $ListPaiement=$PaiementController->afficher();
             <div class="collapse" id="tables">
               <ul class="nav flex-column sub-menu">
   
-                <li class="nav-item"> <a class="nav-link" href="../../pages/gestionPaiement/consulterPaiement.php">Consulter Paiement</a></li>
+               
+              <li class="nav-item"> <a class="nav-link" href="../../pages/gestionPaiement/consulterPaiement.php">Consulter Paiement</a></li>
                 <li class="nav-item"> <a class="nav-link" href="../../pages/gestionPaiement/StatPaiement.php">stat Paiement</a></li>
                 <li class="nav-item"> <a class="nav-link" href="../../pages/gestionPaiement/ajouterPaiement.php">ajout Paiement</a></li>
+             
+             
               </ul>
             </div>
           </li>
@@ -426,17 +429,7 @@ $ListPaiement=$PaiementController->afficher();
       <div class="main-panel">
         <div class="content-wrapper">
           <div class="row">
-          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            $("#myInput").on("keyup", function() {
-                var value = $(this).val().toLowerCase();
-                $("#myTable tr").filter(function() {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                });
-            });
-        });
-    </script>
+
             <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
@@ -444,77 +437,55 @@ $ListPaiement=$PaiementController->afficher();
                   <p class="card-description">
                     Add class <code>.table-striped</code>
                   </p>
-                  <a class="btn btn-primary" href="generatePDF.php"><span>PDF</span></a>
-                  <div id="DataTables_Table_1_filter" class="dataTables_filter">
-                                <label>Recherche:<input id="myInput"  type="text"name="rechercher" class="form-control input-sm" placeholder="" aria-controls="DataTables_Table_1"></label></div>
-                  <div class="table-responsive">
-                    <table class="table table-striped">
-                      <thead>
-                        <tr>
-                          <th>
-                            commande refrence
-                          </th>
-                          <th>
-                           produit
-                          </th>
-                          <th>
-                           prix
-                          </th>
-                          <th>
-                           date
-                          </th>
-                          <th>
-                           mode
-                          </th>
-                         
-                          <th>
-                            action
-                          </th>
-
-                        </tr>
-                      </thead>
-                      <tbody id="myTable">
-                      <?php      foreach ($ListPaiement as $row) {?>
-                        <tr>
-                         
-                        <td>
-                                                       <?php echo $row['commandeRef']; ?>
-                                                      </td>
-                                                      <td>
-                                                      <?php echo $row['produit']; ?>
-                                                      </td>
-                                                      <td>
-                                                      <?php echo $row['prix']; ?>
-                                                      </td>
-                                                      <td>
-                                                      <?php echo $row['date']; ?>
-                                                      </td>
-                                                      <td>
-                                                      <?PHP echo $row['mode']; ?>
-                                                      </td>
-
-                                                    
-                                                      <td>
-                                                    <form
-                                  method="POST" action="supprimerPaiement.php">
-                        <input type="submit" name="supprimer" value="supprimer">
-                        <input type="hidden" value=<?PHP echo $row['id']; ?> name="id">
-                       
-                               </form>
-                                                             </td>
-                                                      </td>
-                                                             <tr class="spacer"></tr>
-                          </tr>
-                    
-                    
-                          <?php
-                                   }
-                                   ?>
-                     
-                     
-                      </tbody>
-                    </table>
-                  </div>
+            
+                  
+                                <div class="body">
+                            <form action="ajoutPaiementAction.php" method="POST">
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                    <label class="form-label">commandeRef</label>
+                                        <input type="text" class="form-control" id="commandeRef" name="commandeRef" maxlength="10" minlength="3" required>
+                                        
+                                    </div>
+                                   
+                                </div>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                    <label class="form-label">produit</label>
+                                        <input type="text" class="form-control"id="produit" name="produit" min="10" max="200" required>
+                                       
+                                    </div>
+                                    
+                                </div>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                    <label class="form-label">prix</label>
+                                        <input type="number" class="form-control" id="prix" name="prix" required>
+                                      
+                                    </div>
+                                  
+                                </div>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                    <label class="form-label">Date</label>
+                                    <input type="datetime-local" name="date" id="date"  value="<?=date('Y-m-d\TH:i')?>"  class="form-control" placeholder="Left Font Awesome Icon"  required>
+                                       
+                                    </div>
+                                  
+                                </div>
+                                <div class="form-group form-float">
+                                    <div class="form-line">
+                                    <label class="form-label">mode</label>
+                                        <input type="text" class="form-control" id="mode" name="mode" required>
+                                       
+                                    </div>
+                                   
+                                </div>
+                               
+                                <button class="btn btn-success waves-effect" type="submit">Valider</button>
+                                <button class="btn btn-danger waves-effect" type="reset">Annuler</button>
+                            </form>
+                        </div>
                 </div>
               </div>
             </div>

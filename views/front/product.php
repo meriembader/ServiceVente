@@ -33,7 +33,7 @@ if (isset($_GET['id'])) {
             <input type="hidden" name="product_id" value="<?=$product['id']?>">
             <input type="submit" value="Add To Cart">
         </form>
-        <form action="commander.php" method="post">
+        <form action="commande.php" method="post">
            
             <input type="hidden" name="product_id" value="<?=$product['id']?>">
             <input type="submit" value="Add To Cart">

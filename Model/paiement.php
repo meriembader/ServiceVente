@@ -5,34 +5,59 @@
 	*/
 	class paiement
 	{
-		private $idPaiement;
-		private $id_commande;
-		private $prix_totale;
+		private $id;
+		private $commandeRef;
+		private $produit;
+		private $prix;
+		private $date;
 		private $mode;
 		
-		function __construct($id_commande,$prix_totale,$mode)
+		function __construct($id,$commandeRef,$produit,$prix,$date,$mode)
 		{
-			$this->id_commande=$id_commande;
-			$this->prix_totale=$prix_totale;
+			$this->id=$id;
+			$this->commandeRef=$commandeRef;
+			$this->produit=$produit;
+			$this->prix=$prix;
+			$this->date=$date;
 			$this->mode=$mode;
 		}
 
-		function getId_commande(){
-			return $this->id_commande;
+		function getId(){
+			return $this->id;
 		}
-		function getPrix_totale(){
-			return $this->prix_totale;
+		function getCommandeRef(){
+			return $this->commandeRef;
 		}
+		function getProduit(){
+			return $this->produit;
+		}
+		function getPrix(){
+			return $this->prix;
+		}
+		function getDate(){
+			return $this->date;
+		}
+
 		function getMode(){
 			return $this->mode;
 		}
 
-		function setId_commande($id_commande){
-			$this->id_commande=$id_commande;
+		function setId($id){
+			$this->id=$id;
 		}
-		function setPrix_totale($prix_totale){
-			$this->prix_totale=$prix_totale;
+		function setCommandeRef($commandeRef){
+			$this->commandeRef=$commandeRef;
 		}
+		function setProduit($produit){
+			$this->produit=$produit;
+		}
+		function setPrix($prix){
+			$this->prix=$prix;
+		}
+		function setDate($date){
+			$this->date=$date;
+		}
+	
 		function setMode($mode){
 			$this->mode=$mode;
 		}

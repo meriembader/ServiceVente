@@ -1,46 +1,46 @@
+<?
+function template_header($title) {
+echo <<<EOT
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>$title</title>
+		<link href="style.css" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+	</head>
+	<body>
+        <header>
+            <div class="content-wrapper">
+                <h1>Shopping Cart System</h1>
+                <nav>
+                    <a href="index.php">Home</a>
+                    <a href="index.php?page=products">Products</a>
+                </nav>
+                <div class="link-icons">
+                    <a href="index.php?page=cart">
+						<i class="fas fa-shopping-cart"></i>
+					</a>
+                </div>
+            </div>
+        </header>
+        <main>
+EOT;
+}
 
-if (isset($_GET['id'])) {
-    
-    $stmt = $pdo->prepare('SELECT * FROM products WHERE id = ?');
-    $stmt->execute([$_GET['id']]);
- 
-    $product = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if (!$product) {
-       
-        exit('Product does not exist!');
-    }
-} else {
-    
-    exit('Product does not exist!');
+// Template footer
+function template_footer() {
+$year = date('Y');
+echo <<<EOT
+        </main>
+        <footer>
+            <div class="content-wrapper">
+                <p>&copy; $year, Shopping Cart System</p>
+            </div>
+        </footer>
+        <script src="script.js"></script>
+    </body>
+</html>
+EOT;
 }
 ?>
-<?=template_header('Product')?>
-
-<div class="product content-wrapper">
-    <img src="imgs/<?=$product['img']?>" width="500" height="500" alt="<?=$product['name']?>">
-    <div>
-        <h1 class="name"><?=$product['name']?></h1>
-        <span class="price">
-            &dollar;<?=$product['price']?>
-            <?php if ($product['rrp'] > 0): ?>
-            <span class="rrp">&dollar;<?=$product['rrp']?></span>
-            <?php endif; ?>
-        </span>
-        <form action="index.php?page=cart" method="post">
-            <input type="number" name="quantity" value="1" min="1" max="<?=$product['quantity']?>" placeholder="Quantity" required>
-            <input type="hidden" name="product_id" value="<?=$product['id']?>">
-            <input type="submit" value="Add To Cart">
-        </form>
-        <form action="commander.php" method="post">
-           
-            <input type="hidden" name="product_id" value="<?=$product['id']?>">
-            <input type="submit" value="Add To Cart">
-        </form>
-        <div class="description">
-            <?=$product['desc']?>
-        </div>
-    </div>
-</div>
-
-<?=template_footer()?>
