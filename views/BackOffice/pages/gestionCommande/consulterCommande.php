@@ -511,7 +511,7 @@ $Listcommande=$commandeController->afficherJoinedCommande();
                                                       <?PHP echo $row['telephone']; ?>
                                                       </td>
                                                       <td>
-                                                      <?PHP echo $row['nom']; ?>
+                                                      <?PHP echo $row['name']; ?>
                                                       </td>
                                                       <td>
                                                       <?PHP echo $row['quantite']; ?>

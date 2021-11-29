@@ -14,16 +14,15 @@
 
 		function ajouter($commande){
 			$db = config::getConnexion();
-			$sql = "INSERT INTO categrie VALUES(:nomUser,:reference,:prenomUser,:addresse,:telephone,:id_produit,:quantite,:modeLivraison,:prix_totale,:modePaiement,:mail)";
+			$sql = "INSERT INTO commande VALUES(:nomUser,:prenomUser,:addresse,:telephone,:id_produit,:quantite,:modeLivraison,:modePaiement,:mail)";
 			$req = $db->prepare($sql);
 			$req->bindValue(':nomUser',$commande->getNomUser());
-			$req->bindValue(':reference',$commande->getReference());
+		
 			$req->bindValue(':prenomUser',$commande->getPrenomUser());
 			$req->bindValue(':addresse',$commande->getAddresse());
 			$req->bindValue(':id_produit',$commande->getId_produit());
 			$req->bindValue(':quantite',$commande->getQuantite());
 			$req->bindValue(':modeLivraison',$commande->getModeLivraison());
-			$req->bindValue(':prix_totale',$commande->getPrix_totale());
 			$req->bindValue(':modePaiement',$commande->getModePaiement());
 			$req->bindValue(':mail',$commande->getMail());
 
@@ -39,7 +38,7 @@
 		}
 		function afficherJoinedCommande(){
 			$db = config::getConnexion();
-			$sql="SELECT commande.nomUser,commande.reference,commande.prenomUser, commande.addresse, commande.telephone, produit.nom, commande.quantite,commande.modeLivraison,commande.prix_totale,commande.modePaiement ,commande.mail  FROM commande INNER JOIN produit ON commande.id_produit=produit.idProduit";
+			$sql="SELECT commande.nomUser,commande.reference,commande.prenomUser, commande.addresse, commande.telephone, products.name, commande.quantite,commande.modeLivraison,commande.prix_totale,commande.modePaiement ,commande.mail  FROM commande INNER JOIN products ON commande.id_produit=products.id";
 			$liste=$db->query($sql);
 			return $liste;
 			

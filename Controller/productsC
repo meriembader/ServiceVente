@@ -1,0 +1,69 @@
+<?php
+
+          include_once "../../config.php";
+
+	/**
+	* 
+	*/
+	class productsC
+	{
+		
+	/*	function ajouter($products){
+			$db = config::getConnexion();
+			$sql = "INSERT INTO priducts (?,?,?,?,?,?,?) VALUES (:reference,:nom,:prix,:chemin_img,:quantite_total,:description,:status)";
+			try {
+				$req = $db->prepare($sql);
+			$req->bindValue(':reference',$products->getReference());
+			$req->bindValue(':nom',$products->getNom());
+			$req->bindValue(':quantite_total',$products->getQuantite_total());
+			$req->bindValue(':prix',$products->getPrix());
+			$req->bindValue(':description',$products->getDescription());
+			$req->bindValue(':chemin_img',$products->getChemin_img());
+			$req->bindValue(':status',$products->getStatus());
+			$req->execute();
+		}
+		catch (Exception $e){
+				echo 'Erreur: '.$e->getMessage();
+			}			
+
+		}*/
+
+
+		function afficherproducts(){
+			$db = config::getConnexion();
+			$sql="SELECT * FROM products ";
+			$liste=$db->query($sql);
+			return $liste;
+			
+		}
+
+		function supprimerproducts($reference){
+			$db = config::getConnexion();
+			$sql="DELETE FROM products where reference= :reference";
+			$req=$db->prepare($sql);
+			$req->bindValue(':reference',$reference);
+	        $req->execute();
+	        
+		}
+
+	
+
+		function recuperer_products($reference){
+			
+			$sql="SELECT * FROM products WHERE reference=$reference";
+			$db = config::getConnexion();
+			try{
+				$req=$db->prepare($sql);
+				$req->execute();
+				
+				$products = $req->fetch();
+				return $products;
+			}
+			catch (Exception $e){
+				die('Erreur: '.$e->getMessage());
+			}
+		}
+
+	}
+
+  ?>
