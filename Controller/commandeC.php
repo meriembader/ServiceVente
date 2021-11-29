@@ -2,11 +2,6 @@
 	
 	include_once "../../../../config.php";
 
-	/**
-	* 
-	*/
-
-	
 	class commandeC
 	{
 		

@@ -168,12 +168,11 @@ $ListProduit=$produitController->afficherproduit();
                                                     <?php echo $row['status']; ?></
                                                     </td>
                                                       <td>
-                                                    <form
-                                  method="POST" action="">
+                                          
                         <input type="submit" name="commander" value="commander">
                      
                        
-                               </form>
+                            
                                                              </td>
                                                       </td>
                                                              <tr class="spacer"></tr>

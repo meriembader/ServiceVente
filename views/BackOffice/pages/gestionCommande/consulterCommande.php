@@ -530,9 +530,8 @@ $Listcommande=$commandeController->afficherJoinedCommande();
                                                       </td>
                                                       <td>
                                                     <form
-                                  method="POST" action="">
+                                  method="POST" action="supprimerCommande.php">
                         <input type="submit" name="supprimer" value="supprimer">
-                     
                        
                                </form>
                                                              </td>
