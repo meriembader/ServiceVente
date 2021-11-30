@@ -441,11 +441,11 @@ $ListPaiement=$PaiementController->afficher();
             <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
-                  <h4 class="card-title">Striped Table</h4>
+                  <h4 class="card-title">Liste paiement</h4>
                   <p class="card-description">
-                    Add class <code>.table-striped</code>
+                   esprit <code>Team</code>
                   </p>
-                  <a class="btn btn-primary" href="generatePDF.php"><span>PDF</span></a>
+              
                   
                   <div id="DataTables_Table_1_filter" class="dataTables_filter">
                                 <label>Recherche:<input id="myInput"  type="text"name="rechercher" class="form-control input-sm" placeholder="" aria-controls="DataTables_Table_1"></label></div>

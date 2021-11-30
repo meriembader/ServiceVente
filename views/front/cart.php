@@ -122,13 +122,12 @@ if ($products_in_cart) {
             </tbody>
         </table>
         <div class="subtotal">
-            <span class="text">Subtotal</span>
+            <span class="text">Total</span>
             <span class="price">&dollar;<?=$subtotal?></span>
         </div>
         <div class="buttons">
             <input type="submit" value="Update" name="update">
-            <input type="submit" value="Place Order" name="placeorder">
-        </div>
+           
     </form>
 </div>
 
