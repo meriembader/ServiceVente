@@ -5,7 +5,7 @@
 $dbhandle = new mysqli('127.0.0.1', 'root', '','ventebd');
 echo $dbhandle->connect_error;
 
-$query = "SELECT  modeLivraison, count(modeLivraison)  FROM commande  group by modeLivraison";
+$query = "SELECT  mode, count(mode)  FROM paiement  group by mode";
 $res = 	$dbhandle->query($query);
 
 
@@ -448,14 +448,14 @@ $res = 	$dbhandle->query($query);
 
         var data = google.visualization.arrayToDataTable([
 		
-		['modeLivraison','modeLivraison'],
+		['mode','mode'],
          <?php
 		 
 		 //fetch_assoc(): lit une ligne de résultat MySql dans un tableau associatif //
 		 
 		 while ($row=$res->fetch_assoc()) {
 			 
-			 echo "['".$row['modeLivraison']."',".$row['count(modeLivraison)']."],"; 
+			 echo "['".$row['mode']."',".$row['count(mode)']."],"; 
 			 
 		 }
 		 
@@ -466,7 +466,7 @@ $res = 	$dbhandle->query($query);
         ]);
 
         var options = {
-          title: '0: non réservée | 1: réservée',
+          title: 'mode de paiement | produit',
 		  is3D:true,
         };
 

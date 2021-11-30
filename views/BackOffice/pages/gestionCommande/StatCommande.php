@@ -397,7 +397,7 @@ $res = 	$dbhandle->query($query);
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
               <i class="menu-icon mdi mdi-table"></i>
-              <span class="menu-title">Tables</span>
+              <span class="menu-title">Gesttion commande</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="tables">
@@ -411,7 +411,7 @@ $res = 	$dbhandle->query($query);
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
               <i class="menu-icon mdi mdi-table"></i>
-              <span class="menu-title">Tables</span>
+              <span class="menu-title">Gestion paiement</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="tables">
@@ -420,7 +420,7 @@ $res = 	$dbhandle->query($query);
               <li class="nav-item"> <a class="nav-link" href="../../pages/gestionPaiement/consulterPaiement.php">Consulter Paiement</a></li>
                 <li class="nav-item"> <a class="nav-link" href="../../pages/gestionPaiement/StatPaiement.php">stat Paiement</a></li>
                 <li class="nav-item"> <a class="nav-link" href="../../pages/gestionPaiement/ajouterPaiement.php">ajout Paiement</a></li>
-            
+             
               </ul>
             </div>
           </li>
@@ -466,7 +466,7 @@ $res = 	$dbhandle->query($query);
         ]);
 
         var options = {
-          title: '0: non réservée | 1: réservée',
+          title: 'mode de livraison | Commande',
 		  is3D:true,
         };
 
