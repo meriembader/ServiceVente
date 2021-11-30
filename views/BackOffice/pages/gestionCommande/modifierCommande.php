@@ -438,7 +438,7 @@ if ( isset($_POST['captchaText']) && ($_POST['captchaText']!="")){
       </div>
       <!-- partial -->
       <!-- partial:../../partials/_sidebar.html -->
-      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
             <a class="nav-link" href="../../index.html">
@@ -450,7 +450,7 @@ if ( isset($_POST['captchaText']) && ($_POST['captchaText']!="")){
           <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
               <i class="menu-icon mdi mdi-table"></i>
-              <span class="menu-title">Gestion Commandes</span>
+              <span class="menu-title">Gesttion commande</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="tables">
@@ -470,11 +470,9 @@ if ( isset($_POST['captchaText']) && ($_POST['captchaText']!="")){
             <div class="collapse" id="tables">
               <ul class="nav flex-column sub-menu">
   
-               
               <li class="nav-item"> <a class="nav-link" href="../../pages/gestionPaiement/consulterPaiement.php">Consulter Paiement</a></li>
                 <li class="nav-item"> <a class="nav-link" href="../../pages/gestionPaiement/StatPaiement.php">stat Paiement</a></li>
                 <li class="nav-item"> <a class="nav-link" href="../../pages/gestionPaiement/ajouterPaiement.php">ajout Paiement</a></li>
-             
              
               </ul>
             </div>

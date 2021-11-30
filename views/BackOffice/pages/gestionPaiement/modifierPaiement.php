@@ -504,7 +504,7 @@
         
      
                                         <button class="btn btn-success waves-effect" type="submit">Valider</button>
-                                        <a href='listpaiement.php' class='btn btn-danger'>Back</a>
+                                        <a href='consulterPaiement.php' class='btn btn-danger'>Back</a>
                                 </table>
                             </form>
                             <?php if ($msg): ?>
