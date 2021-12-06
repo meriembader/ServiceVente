@@ -1,27 +1,27 @@
 <?php
-// If the user clicked the add to cart button on the product page we can check for the form data
+
 if (isset($_POST['product_id'], $_POST['quantity']) && is_numeric($_POST['product_id']) && is_numeric($_POST['quantity'])) {
-    // Set the post variables so we easily identify them, also make sure they are integer
+
     $product_id = (int)$_POST['product_id'];
     $quantity = (int)$_POST['quantity'];
-    // Prepare the SQL statement, we basically are checking if the product exists in our databaser
+
     $stmt = $pdo->prepare('SELECT * FROM products WHERE id = ?');
     $stmt->execute([$_POST['product_id']]);
-    // Fetch the product from the database and return the result as an Array
+   
     $product = $stmt->fetch(PDO::FETCH_ASSOC);
-    // Check if the product exists (array is not empty)
+    
     if ($product && $quantity > 0) {
-        // Product exists in database, now we can create/update the session variable for the cart
+      
         if (isset($_SESSION['cart']) && is_array($_SESSION['cart'])) {
             if (array_key_exists($product_id, $_SESSION['cart'])) {
-                // Product exists in cart so just update the quanity
+               
                 $_SESSION['cart'][$product_id] += $quantity;
             } else {
-                // Product is not in cart so add it
+              
                 $_SESSION['cart'][$product_id] = $quantity;
             }
         } else {
-            // There are no products in cart, this will add the first product to cart
+            
             $_SESSION['cart'] = array($product_id => $quantity);
         }
     }
@@ -34,6 +34,7 @@ if (isset($_GET['remove']) && is_numeric($_GET['remove']) && isset($_SESSION['ca
     // Remove the product from the shopping cart
     unset($_SESSION['cart'][$_GET['remove']]);
 }
+
 
 // Update product quantities in cart if the user clicks the "Update" button on the shopping cart page
 if (isset($_POST['update']) && isset($_SESSION['cart'])) {
@@ -78,6 +79,38 @@ if ($products_in_cart) {
         $subtotal += (float)$product['price'] * (int)$products_in_cart[$product['id']];
     }
 }
+
+
+
+// For testing purposes set this to true, if set to true it will use paypal sandbox
+$testmode = true;
+$paypalurl = $testmode ? 'https://www.sandbox.paypal.com/cgi-bin/webscr' : 'https://www.paypal.com/cgi-bin/webscr';
+// If the user clicks the PayPal checkout button...
+if (isset($_POST['paypal']) && $products_in_cart && !empty($products_in_cart)) {
+    // Variables we need to pass to paypal
+    // Make sure you have a business account and set the "business" variable to your paypal business account email
+    $data = array(
+        'cmd'			=> '_cart',
+        'upload'        => '1',
+        'lc'			=> 'EN',
+        'business' 		=> 'payments@yourwebsite.com',
+        'cancel_return'	=> 'https://yourwebsite.com/index.php?page=cart',
+        'notify_url'	=> 'https://yourwebsite.com/index.php?page=cart&ipn_listener=paypal',
+        'currency_code'	=> 'USD',
+        'return'        => 'https://yourwebsite.com/index.php?page=placeorder'
+    );
+    // Add all the products that are in the shopping cart to the data array variable
+    for ($i = 0; $i < count($products); $i++) {
+        $data['item_number_' . ($i+1)] = $products[$i]['id'];
+        $data['item_name_' . ($i+1)] = $products[$i]['name'];
+        $data['quantity_' . ($i+1)] = $products_in_cart[$products[$i]['id']];
+        $data['amount_' . ($i+1)] = $products[$i]['price'];
+    }
+    // Send the user to the paypal checkout screen
+    header('location:' . $paypalurl . '?' . http_build_query($data));
+    // End the script don't need to execute anything else
+    exit;
+}
 ?>
 <?=template_header('Cart')?>
 
@@ -88,6 +121,7 @@ if ($products_in_cart) {
             <thead>
                 <tr>
                     <td colspan="2">Product</td>
+                    <td></td>
                     <td>Price</td>
                     <td>Quantity</td>
                     <td>Total</td>
@@ -110,7 +144,14 @@ if ($products_in_cart) {
                         <a href="index.php?page=product&id=<?=$product['id']?>"><?=$product['name']?></a>
                         <br>
                         <a href="index.php?page=cart&remove=<?=$product['id']?>" class="remove">Remove</a>
+                        <a href="cmder.php" class="test">commander</a>
+                        </td>
+                        <td>
+                        <div class="paypal">
+		<button type="submit" name="paypal"><img src="https://www.paypalobjects.com/webstatic/mktg/Logo/pp-logo-100px.png" border="0" alt="PayPal Logo"></button>
+	</div>
                     </td>
+                   
                     <td class="price">&dollar;<?=$product['price']?></td>
                     <td class="quantity">
                         <input type="number" name="quantity-<?=$product['id']?>" value="<?=$products_in_cart[$product['id']]?>" min="1" max="<?=$product['quantity']?>" placeholder="Quantity" required>
@@ -127,8 +168,10 @@ if ($products_in_cart) {
         </div>
         <div class="buttons">
             <input type="submit" value="Update" name="update">
-           
+          
     </form>
+
+    
 </div>
 
 <?=template_footer()?>
