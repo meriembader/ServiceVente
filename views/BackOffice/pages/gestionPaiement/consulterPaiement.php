@@ -438,6 +438,16 @@ $ListPaiement=$PaiementController->afficher();
             });
         });
     </script>
+    <script>
+        function Export()
+        {
+            var conf = confirm("Export  to CSV?");
+            if(conf == true)
+            {
+                window.open("export.php", '_blank');
+            }
+        }
+    </script>
             <div class="col-lg-12 grid-margin stretch-card">
               <div class="card">
                 <div class="card-body">
@@ -445,7 +455,8 @@ $ListPaiement=$PaiementController->afficher();
                   <p class="card-description">
                    esprit <code>Team</code>
                   </p>
-              
+                  <div class="form-group">
+        <button onclick="Export()" class="btn btn-primary">Export to CSV File</button>
                   
                   <div id="DataTables_Table_1_filter" class="dataTables_filter">
                                 <label>Recherche:<input id="myInput"  type="text"name="rechercher" class="form-control input-sm" placeholder="" aria-controls="DataTables_Table_1"></label></div>
