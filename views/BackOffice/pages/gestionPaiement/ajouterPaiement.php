@@ -10,6 +10,26 @@ $ListPaiement=$PaiementController->afficher();
 ?>
 
 
+<?php
+ if(isset($_POST['submit']) && $_POST['submit'] == 'SUBMIT'){
+  if(isset($_POST['g-recaptcha-response']) && !empty($_POST['g-recaptcha-response']))
+  {
+        $secret = '6LfAdYIdAAAAAHuV6seA_GyYDhuLfpIIdyR_oJYz';
+        $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$_POST['g-recaptcha-response']);
+        $responseData = json_decode($verifyResponse);
+        if($responseData->success)
+        { ?>
+<div style="color: limegreen;"><b>Your contact request have submitted successfully.</b></div>
+        <?php }
+        else
+        {?>
+            <div style="color: red;"><b>Robot verification failed, please try again.</b></div>
+        <?php }
+   }else{?>
+       <div style="color: red;"><b>Please do the robot verification.</b></div>
+   <?php }
+ }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -437,7 +457,8 @@ $ListPaiement=$PaiementController->afficher();
                   <p class="card-description">
                   esprit <code>team</code>
                   </p>
-            
+                  <div class="g-recaptcha" data-sitekey="6LfAdYIdAAAAALvbfao8VPDTqYqV60FM3yOBy08u"></div><br><br>
+
                   
                                 <div class="body">
                             <form action="ajoutPaiementAction.php" method="POST">
@@ -521,6 +542,8 @@ $ListPaiement=$PaiementController->afficher();
   <script src="../../js/template.js"></script>
   <script src="../../js/settings.js"></script>
   <script src="../../js/todolist.js"></script>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
   <!-- endinject -->
   <!-- Custom js for this page-->
   <!-- End custom js for this page-->
