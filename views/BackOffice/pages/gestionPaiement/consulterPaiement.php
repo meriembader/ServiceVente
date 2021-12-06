@@ -457,6 +457,7 @@ $ListPaiement=$PaiementController->afficher();
                   </p>
                   <div class="form-group">
         <button onclick="Export()" class="btn btn-primary">Export to CSV File</button>
+
                   
                   <div id="DataTables_Table_1_filter" class="dataTables_filter">
                                 <label>Recherche:<input id="myInput"  type="text"name="rechercher" class="form-control input-sm" placeholder="" aria-controls="DataTables_Table_1"></label></div>

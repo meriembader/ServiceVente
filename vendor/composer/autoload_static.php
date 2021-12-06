@@ -13,6 +13,7 @@ class ComposerStaticInit6c0a5a6a48dce1e485ca82f249692ee1
         ),
         'F' => 
         array (
+            'Fpdf\\' => 5,
             'FontLib\\' => 8,
         ),
         'D' => 
@@ -25,6 +26,10 @@ class ComposerStaticInit6c0a5a6a48dce1e485ca82f249692ee1
         'Svg\\' => 
         array (
             0 => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg',
+        ),
+        'Fpdf\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/fpdf/fpdf/src/Fpdf',
         ),
         'FontLib\\' => 
         array (
